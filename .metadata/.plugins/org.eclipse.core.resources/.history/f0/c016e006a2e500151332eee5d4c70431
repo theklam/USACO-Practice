@@ -95,11 +95,11 @@ public class Haybales {
 							
 							else { //piles.get(pile) - desiredBalesPerPile < balesNeeded
 								
-								//need for bales is NOT fulfilled, but almost there
-								balesNeeded -= (piles.get(pile) - desiredBalesPerPile);
-								
 								piles.set(i, piles.get(i) + (piles.get(pile) - desiredBalesPerPile));
 								piles.set(pile, desiredBalesPerPile);
+								
+								//need for bales is NOT fulfilled, but almost there
+								balesNeeded -= (piles.get(pile) - desiredBalesPerPile);
 							
 								System.out.println("\n\nhi");
 								System.out.println("Bales needed is now " + balesNeeded);

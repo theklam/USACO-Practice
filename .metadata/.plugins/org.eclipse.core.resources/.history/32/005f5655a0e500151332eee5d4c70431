@@ -51,7 +51,7 @@ public class Haybales {
 				
 				//if current pile has desired amount of bales, do nothing -> move to next pile
 				if(piles.get(i) == desiredBalesPerPile) {
-					System.out.println("Row " + (i + 1) + " has enough haybales.");
+					
 				}
 				
 				//if this current pile has less than the desired amount of bales
@@ -75,9 +75,6 @@ public class Haybales {
 								//set current pile to desired
 								piles.set(i, desiredBalesPerPile);
 								
-								//need for bales is fulfilled
-								balesNeeded -= desiredBalesPerPile;
-								
 							}
 							
 							else if(piles.get(pile) - desiredBalesPerPile == balesNeeded) {
@@ -88,27 +85,15 @@ public class Haybales {
 								//set current pile to desired
 								piles.set(i, desiredBalesPerPile);
 								
-								//need for bales is fulfilled
-								balesNeeded -= desiredBalesPerPile;
 								
 							}
 							
 							else { //piles.get(pile) - desiredBalesPerPile < balesNeeded
 								
-								//need for bales is NOT fulfilled, but almost there
-								balesNeeded -= (piles.get(pile) - desiredBalesPerPile);
-								
 								piles.set(i, piles.get(i) + (piles.get(pile) - desiredBalesPerPile));
 								piles.set(pile, desiredBalesPerPile);
-							
-								System.out.println("\n\nhi");
-								System.out.println("Bales needed is now " + balesNeeded);
 								
 							}
-						}
-						System.out.println();
-						for(int n: piles) {
-							System.out.println(n);
 						}
 					}
 				}
