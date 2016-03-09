@@ -1,0 +1,29 @@
+/*
+ID: ikalvin1
+LANG: JAVA
+TASK: gift1
+*/
+import java.io.*;
+import java.util.*;
+
+public class gift1 {
+  public static void main (String [] args) throws IOException {
+    Scanner s = new Scanner(new File("gift1.in"));
+    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("gift1.out")));
+    
+    int numFriends = s.nextInt();
+    int[] profit = new int[numFriends];
+    String[] names = new String[numFriends];
+    
+    for(int i = 0; i < numFriends; i++) {
+    	names[i] = s.next();
+    }
+    
+    
+	  
+
+	  
+	  
+
+  }
+}
