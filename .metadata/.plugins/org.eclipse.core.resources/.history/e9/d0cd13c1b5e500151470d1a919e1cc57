@@ -37,7 +37,9 @@ public class test {
 	  int i2 = s.nextInt();
 	  
 	  PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("test.out")));
-	  out.println(i1+i2);
+	  int sum = i1 + i2;
+	  String temp = "" + sum;
+	  out.println(sum);
 	  out.close();
 	  
 	  
