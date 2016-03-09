@@ -6,7 +6,7 @@ public class Haybales {
 	public static void main(String[] args) {
 		
 		try {
-			Scanner s = new Scanner(new File("haybales1.txt"));
+			Scanner s = new Scanner(new File("haybales.txt"));
 			int numPiles = s.nextInt(); 
 			int balesMoved = 0;
 			List<Integer> piles = new ArrayList<Integer>();
@@ -100,7 +100,10 @@ public class Haybales {
 								
 								piles.set(i, piles.get(i) + (piles.get(pile) - desiredBalesPerPile));
 								piles.set(pile, desiredBalesPerPile);
-															
+							
+								System.out.println("\n\nhi");
+								System.out.println("Bales needed is now " + balesNeeded);
+								
 							}
 						}
 						System.out.println();
