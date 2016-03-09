@@ -1,0 +1,36 @@
+/*
+ID: ikalvin1
+LANG: JAVA
+TASK: promote
+ */
+import java.io.*;
+import java.util.*;
+
+public class promote {
+	public static void main(String[] args) throws IOException {
+//		Scanner s = new Scanner(new File("promote.in"));
+		Scanner s = new Scanner(new File("promote.txt"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(
+				"gift1.out")));
+		
+		List<Integer> before = new ArrayList<Integer>();
+		List<Integer> after = new ArrayList<Integer>();
+		List<Integer> promotions = new ArrayList<Integer>();
+		
+		while(s.hasNext()) {
+			before.add(s.nextInt());
+			after.add(s.nextInt());
+		}
+		
+		//go through the array starting from the last spot
+		for(int i = after.size() - 1; i >= 0; i--) {
+			//at this index, after is bigger than before
+			
+			//at this index, before is bigger than after
+
+		}
+		
+//		out.close();
+
+	}
+}

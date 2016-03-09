@@ -28,7 +28,7 @@ public class gift1 {
 			int amountOfPeopleSharingGift = s.nextInt();
 			int amountGivenToEachPerson;
 			
-			//if either are 0, don't take any further actions
+			//if NG == 0, don't take any further actions
 			if(amountOfPeopleSharingGift == 0) {
 				
 			}

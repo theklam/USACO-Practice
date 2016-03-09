@@ -1,0 +1,20 @@
+/*
+ID: ikalvin1
+LANG: JAVA
+TASK: promote
+ */
+import java.io.*;
+import java.util.*;
+
+public class promote {
+	public static void main(String[] args) throws IOException {
+//		Scanner s = new Scanner(new File("promote.in"));
+		Scanner s = new Scanner(new File("promote.txt"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(
+				"gift1.out")));
+		
+		
+//		out.close();
+
+	}
+}
