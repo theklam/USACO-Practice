@@ -8,66 +8,82 @@ import java.util.*;
 
 public class promote {
 	public static void main(String[] args) throws IOException {
-//		Scanner s = new Scanner(new File("promote.in"));
-		Scanner s = new Scanner(new File("promote.txt"));
+		Scanner s = new Scanner(new File("promote.in"));
+//		Scanner s = new Scanner(new File("promote.txt"));
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(
-				"gift1.out")));
+				"promote.out")));
 		
 		List<Integer> before = new ArrayList<Integer>();
 		List<Integer> after = new ArrayList<Integer>();
-		int[] promotions = new int[3];
+		List<Integer> promotions = new ArrayList<Integer>();
+		promotions.add(0);
+		promotions.add(0);
+		promotions.add(0);
+
+		
 		
 		while(s.hasNext()) {
 			before.add(s.nextInt());
 			after.add(s.nextInt());
 		}
 		
-		//go through the array starting from the last spot
-		//don't process first element
-		for(int i = after.size() - 1; i > 0; i--) {
-			//at this index, after is bigger than before
-			if(after.get(i) > before.get(i)) {
-				
-				//trace back from current index - 1
-				for(int start = i - 1; after.get(i) != before.get(i) && start >= 0; start--) {
-					
-					//if elem > 0 
-					if(before.get(start) > 0) {
-						
-						while(before.get(start) > 0 && after.get(i) != before.get(i)) {
-							before.set(start, before.get(start) - 1);
-							before.set(i, before.get(i) + 1);
-							promotions[i-1]++;
-						}
-						
-					}
-					
-					//elem <= 0
-					else {
-						
-					}
-					
-				}
-				
-			}
-			
-			//at this index, before is bigger than after
-			else if(before.get(i) > after.get(i)) {
-				
-			}
-			
-			//at this index, before = after
-			else {
-				
-			}
-
+//		//printing before array
+//		for(int n: before) {
+//			System.out.println(n);
+//		}
+//		
+//		System.out.println();
+//		
+//		//printing after array
+//		for(int n: after) {
+//			System.out.println(n);
+//		}
+//		
+//		System.out.println();
+		
+		int sumBefore = 0;
+		int sumAfter = 0;
+		
+		//calculate sums
+		for(int n: before) {
+			sumBefore += n;
 		}
+		for(int n: after) {
+			sumAfter += n;
+		}
+		
+//		System.out.println("Sum before is " + sumBefore);
+//		System.out.println("Sum after is " + sumAfter);
+//		System.out.println();
+		
+		if(sumAfter>sumBefore) {
+			before.set(0, before.get(0) + (sumAfter - sumBefore));
+		}
+		
+//		//printing before array after adding to the first index
+//		for(int n: before) {
+//			System.out.println(n);
+//		}
+		
+		for(int i = 0; i < before.size() - 1; i++) {
+			
+			if(before.get(i) > after.get(i)) {
+				int diff = before.get(i) - after.get(i);
+				before.set(i, before.get(i) - diff);
+				before.set(i+1, before.get(i+1) + diff);
+				promotions.set(i, promotions.get(i) + diff);
+				System.out.println("This is the " + i + "th run");
+			}
+		}
+		
+		
 		
 		for(int n: promotions) {
-			System.out.println(n);
+			out.println(n);
+//			System.out.println(n);
 		}
 		
-//		out.close();
+		out.close();
 
 	}
 }
