@@ -9,113 +9,190 @@ import java.util.*;
 public class beads {
 	public static void main(String[] args) throws IOException {
 //		Scanner s = new Scanner(new File("beads.in"));
-		Scanner s = new Scanner(new File("beads2.txt"));	
+		Scanner s = new Scanner(new File("beads5.txt"));	
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(
 				"beads.out")));
 		
-		int numBeads = s.nextInt();
-		System.out.println("Number of beads is " + numBeads);
-		String oneStrandBeads = s.next();
-		int count = 0;
-		int max = -55555;
-		String twoStrandsBeads = oneStrandBeads + oneStrandBeads;
-		char[] beads = twoStrandsBeads.toCharArray();
+		int total = 0;
+		int max = 0;
 		boolean hasChangePoint = false;
 		
-		//process all beads
-		for(int i = 1; i < numBeads; i++) {
+		int numBeads = s.nextInt();
+		String originalStrand = s.next();
+		
+		System.out.println("original strand is " + originalStrand);
+		
+//		String modifiedStrand = originalStrand.substring(originalStrand.length()/2) + originalStrand + originalStrand.substring(0, originalStrand.length()/2);
+		//check if last bead is equal to first bead for wrap around
+		//checking if wraparound is even needed
+		if(originalStrand.charAt(0) == originalStrand.charAt(originalStrand.length()-1)) {
 			
-			int counter = 0;
 			
-			//if right or left bead is diff color, it's a changing point, cannot have white at the change point
-			if( beads[i] != 'w' && (beads[i-1] != 'w' && beads[i-1] != beads[i] || beads[i+1] != 'w' && beads[i] != beads[i+1]) ) {
+			
+		}
+		
+//		String modifiedStrand = originalStrand + originalStrand;
+		
+		
+		System.out.println("modified strand is " + modifiedStrand);
+		
+//		originalStrand = originalStrand + originalStrand;
+//		numBeads *= 2;
+		
+		int start = modifiedStrand.indexOf(originalStrand);
+		
+		//where is the original strand in the modified strand?
+		System.out.println("start is " + start);
+		
+		System.out.println("start + numbeads is " + (start + numBeads));
+		System.out.println("char at " + modifiedStrand.charAt(start+numBeads));
+		
+
+		
+		for(int spot = 1; spot < numBeads*2; spot++) {
+			System.out.println("Spot " + spot + " is in between beads of " + (spot - 1) + " and " + spot);
+			boolean leftOrRightBeadIsWhite = modifiedStrand.charAt(spot-1) == 'w' || modifiedStrand.charAt(spot) == 'w';
+			boolean leftAndRightBeadSameColor = modifiedStrand.charAt(spot-1) == modifiedStrand.charAt(spot);
+			boolean leftBeadWhite = modifiedStrand.charAt(spot-1)=='w';
+			boolean rightBeadWhite = modifiedStrand.charAt(spot)=='w';
+			int count = 0;
+
+			//check if left or right bead is  white
+			if(leftOrRightBeadIsWhite) {
 				
-				hasChangePoint = true;
-				System.out.println("Changing point is at bead " + i);
-				
-				//is left diff color
-				if(beads[i-1] != beads[i]) {
+				if(leftBeadWhite && rightBeadWhite) {
 					
-					char desiredLeft;
-					
-					//determine which color left bead should be
-					if(beads[i] == 'r') {
-						desiredLeft = 'b';
+					//check left first
+					int left = spot-1;
+					if(left-1 >= 0) { //make sure we are in bounds
+						char desiredLeft = modifiedStrand.charAt(left - 1); //put the -1 to skip the white beat
+						while(left >= 0 && (modifiedStrand.charAt(left) == desiredLeft || modifiedStrand.charAt(left) == 'w')) {
+							left--;
+							count++;
+						}
 					}
-					else{
-						desiredLeft = 'r';
-					}
-					
-					//run while left bead is correct color AND in bounds
-					for(int left = i - 1; left >= 0 && (beads[left] == desiredLeft || beads[left] == 'w'); left--) {
-						counter++;
+					else {	
+						
 					}
 					
-					//run while right bead is correct color AND in bounds
-					for(int right = i; right < beads.length && (beads[right] == beads[i] || beads[right] == 'w'); right++) {
-						counter++;
+					//check right second
+					int right = spot;
+					if(right+1 < numBeads*2) {
+						char desiredRight = modifiedStrand.charAt(right + 1); //put the +1 to skip the white bead
+						while(right < numBeads*2 && (modifiedStrand.charAt(right) == desiredRight || modifiedStrand.charAt(right) == 'w')) {
+							right++;
+							count++;
+						}
 					}
 					
 				}
 				
-				//is right diff color
+				else if(leftBeadWhite) {
+					
+					//check left first
+					int left = spot-1;
+					char desiredLeft = modifiedStrand.charAt(left - 1); //put the -1 to skip the white beat
+					while(left >= 0 && (modifiedStrand.charAt(left) == desiredLeft || modifiedStrand.charAt(left) == 'w')) {
+						left--;
+						count++;
+					}
+					
+					//check right second
+					int right = spot;
+					char desiredRight = modifiedStrand.charAt(right); 
+					while(right < numBeads*2 && (modifiedStrand.charAt(right) == desiredRight || modifiedStrand.charAt(right) == 'w')) {
+						right++;
+						count++;
+					}
+					
+				}
+				
 				else {
 					
-					System.out.println("Right bead is diff color at bead " + i);
-					
-					char desiredRight;
-					
-					//determine which color right bead should be
-					if(beads[i] == 'r') {
-						desiredRight = 'b';
-					}
-					else{
-						desiredRight = 'r';
+					//check left first
+					int left = spot-1;
+					char desiredLeft = modifiedStrand.charAt(left); 
+					while(left >= 0 && (modifiedStrand.charAt(left) == desiredLeft || modifiedStrand.charAt(left) == 'w')) {
+						left--;
+						count++;
 					}
 					
-					System.out.println("The desired right char is " + desiredRight);
-					
-					//run while right bead is correct color AND in bounds
-					for(int right = i + 1; right < beads.length && (beads[right] == desiredRight || beads[right] == 'w'); right++) {
-						counter++;
-						System.out.println("first for loop run");
-						System.out.println("counter is " + counter);
+					//check right second
+					int right = spot;
+					char desiredRight = modifiedStrand.charAt(right + 1); //put the +1 to skip the white bead
+					while(right < numBeads*2 && (modifiedStrand.charAt(right) == desiredRight || modifiedStrand.charAt(right) == 'w')) {
+						right++;
+						count++;
 					}
 					
-					//run while left bead is correct color AND in bounds
-					for(int left = i; left >= 0 && (beads[left] == beads[i] || beads[left] == 'w'); left--) {
-						counter++;
-						System.out.println("second for loop run");
-						System.out.println("counter is " + counter);
-					}
 					
-				}
-			}
-
-			//if it is NOT change point "rrrr"
-			else {
-				System.out.println("Not at change point");
-				//go right
-				for(int right = i; right < numBeads && (beads[right] == 'w' || beads[right] == beads[i]); right++) {
-					System.out.println("first for loop run at index " + right);
-					counter++;
-				}
-				
-				//go left
-				for(int left = i - 1; left >= 0 && (beads[left] == 'w' || beads[left] == beads[i]); left--) {
-					counter++;
 				}
 				
 			}
 			
-			//check if current count is greater than max before incrementing to next bead
-			if(counter > max) {
-				max = counter;
+			//check if left and right bead are same color
+			else if(leftAndRightBeadSameColor) {
+				
+			}
+			
+			else {
+				hasChangePoint = true;
+				System.out.println("CHANGE POINT AT SPOT " + spot);
+				System.out.println("between beads " + modifiedStrand.charAt(spot-1) + modifiedStrand.charAt(spot));
+				
+				//at change point we want to begin count and see if count can reach pass the current max
+				
+				//check left first
+				int left = spot-1;
+				char desiredLeft = modifiedStrand.charAt(left);
+				while(left >= 0 && (modifiedStrand.charAt(left) == desiredLeft || modifiedStrand.charAt(left) == 'w')) {
+					left--;
+					count++;
+				}
+				
+				//check right second
+				int right = spot;
+				char desiredRight = modifiedStrand.charAt(right);
+				while(right < numBeads*2 && (modifiedStrand.charAt(right) == desiredRight || modifiedStrand.charAt(right) == 'w')) {
+					right++;
+					count++;
+				}
+				
+			}
+			
+			if(count>max) {
+				max = count;
+			}
+			
+			System.out.println("count is " + count);
+			
+		}
+		
+		//duplicates array, blue at index 0, red at index 1, white at index 2
+		int[] duplicates = new int[3];
+		//for cases where all beads are same color, check to see if there are duplicates
+		char[] strand = originalStrand.toCharArray();
+		for(char b: strand) {
+			if(b == 'b') {
+				duplicates[0]++;
+			}
+			if(b=='r'){
+				duplicates[1]++;
+			}
+			if(b=='w'){
+				duplicates[2]++;
 			}
 		}
 		
+		for(int i: duplicates) {
+			if(i==numBeads) {
+				max = numBeads;
+			}
+		}
+		
+		System.out.println("max is " + max);
+		
 		out.println(max);
-		System.out.println(max);
 		
 		out.close();
 
